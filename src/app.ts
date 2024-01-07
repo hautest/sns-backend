@@ -1,9 +1,15 @@
-const test = () => {
-  console.log('test');
-};
+import { createServer } from 'http';
+import express from 'express';
+import router from './api/auth/signUp/signUp';
+import emailRouter from './api/auth/email/email';
 
-console.log(process.env.TEST);
+const app = express();
+const server = createServer(app);
 
-const b = 'a';
+app.use(express.json());
+app.use('/sign-up', router);
+app.use('/email', emailRouter);
 
-const a = 'a';
+server.listen(4000, () => {
+  console.log(`Server running in 4000`);
+});

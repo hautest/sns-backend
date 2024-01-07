@@ -9,4 +9,9 @@ module.exports = {
     project: './tsconfig.json',
   },
   plugins: ['@typescript-eslint'],
+  rules: {
+    'class-methods-use-this': 'off',
+    'import/prefer-default-export': 'off',
+    '@typescript-eslint/naming-convention': 'off',
+  },
 };
