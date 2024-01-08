@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
 
   const { access_token } = data?.session || {};
 
-  res.send(successRes({ data: { accessToken: access_token } })).status(200);
+  res.send(successRes({ accessToken: access_token })).status(200);
 });
 
 export default router;
