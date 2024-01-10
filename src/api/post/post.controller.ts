@@ -51,4 +51,27 @@ export default class PostController {
 
     return result;
   }
+
+  async findOne(id: string) {
+    const result = await supabase.from('posts').select().eq('id', id).single();
+
+    return result;
+  }
+
+  async delete({ id, accessToken }: { id: string; accessToken: string }) {
+    const userResult = await this.getUser(accessToken);
+
+    if (userResult.error) {
+      return userResult;
+    }
+
+    const result = await supabase
+      .from('posts')
+      .delete()
+      .eq('id', id)
+      .eq('user_id', userResult.data.user.id)
+      .single();
+
+    return result;
+  }
 }

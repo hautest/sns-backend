@@ -88,4 +88,69 @@ router.get('/', async (req, res) => {
   res.send(successRes({ data })).status(200);
 });
 
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  const { data, error } = await postController.findOne(id);
+
+  if (error) {
+    res
+      .send(
+        errorRes({
+          message: `게시글 조회에 실패했습니다 ${error.message}`,
+        }),
+      )
+      .status(400);
+
+    return;
+  }
+
+  res.send(successRes({ data })).status(200);
+});
+
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  const accessToken = req.headers.authorization;
+
+  if (accessToken === undefined) {
+    res
+      .send(
+        errorRes({
+          message: '본인의 글만 삭제할 수 있습니다',
+        }),
+      )
+      .status(401);
+
+    return;
+  }
+
+  if (!id || typeof id !== 'string') {
+    res
+      .send(
+        errorRes({
+          message: 'id를 입력해주세요',
+        }),
+      )
+      .status(400);
+
+    return;
+  }
+
+  const { error } = await postController.delete({ id, accessToken });
+
+  if (error) {
+    res
+      .send(
+        errorRes({
+          message: `게시글 삭제에 실패했습니다 ${error.message}`,
+        }),
+      )
+      .status(400);
+
+    return;
+  }
+
+  res.send(successRes()).status(200);
+});
+
 export default router;
