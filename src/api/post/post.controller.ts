@@ -40,7 +40,7 @@ export default class PostController {
   async findAll({ cursor, limit }: FindAllParams) {
     let query = supabase
       .from('posts')
-      .select()
+      .select('*, comments(*)')
       .order('created_at', { ascending: false });
 
     if (cursor) {
@@ -53,7 +53,11 @@ export default class PostController {
   }
 
   async findOne(id: string) {
-    const result = await supabase.from('posts').select().eq('id', id).single();
+    const result = await supabase
+      .from('posts')
+      .select('*, comments(*)')
+      .eq('id', id)
+      .single();
 
     return result;
   }
