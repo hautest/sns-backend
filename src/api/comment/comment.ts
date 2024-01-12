@@ -66,4 +66,49 @@ router.post('/', async (req, res) => {
   res.send(successRes(data)).status(200);
 });
 
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  const accessToken = req.headers.authorization;
+
+  if (!accessToken) {
+    res
+      .send(
+        errorRes({
+          message: '로그인이 필요합니다',
+        }),
+      )
+      .status(401);
+
+    return;
+  }
+
+  if (!id || typeof id !== 'string') {
+    res
+      .send(
+        errorRes({
+          message: 'id를 입력해주세요',
+        }),
+      )
+      .status(400);
+
+    return;
+  }
+
+  const { error } = await commentController.delete({ id, accessToken });
+
+  if (error) {
+    res
+      .send(
+        errorRes({
+          message: `댓글 삭제에 실패했습니다 ${error.message}`,
+        }),
+      )
+      .status(400);
+
+    return;
+  }
+
+  res.send(successRes()).status(200);
+});
+
 export default router;

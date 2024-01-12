@@ -46,7 +46,7 @@ export default class CommentController {
     }
 
     const result = await supabase
-      .from('posts')
+      .from('comments')
       .delete()
       .eq('id', id)
       .eq('user_id', userResult.data.user.id)
