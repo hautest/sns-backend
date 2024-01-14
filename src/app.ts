@@ -7,6 +7,7 @@ import signInRouter from './api/auth/signIn/signIn';
 import postRouter from './api/post/post';
 import commentRouter from './api/comment/comment';
 import likeRouter from './api/like/like';
+import myRouter from './api/my/my';
 
 const app = express();
 const server = createServer(app);
@@ -25,6 +26,8 @@ app.use('/post', postRouter);
 app.use('/comment', commentRouter);
 // like
 app.use('/', likeRouter);
+// my
+app.use('/my', myRouter);
 
 server.listen(4000, () => {
   console.log(`Server running in 4000`);

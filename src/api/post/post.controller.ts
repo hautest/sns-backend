@@ -9,6 +9,7 @@ interface CreateParams extends WithAccessToken {
 interface FindAllParams {
   cursor: number;
   limit: number;
+  accessToken?: string;
 }
 
 export default class PostController {
@@ -37,17 +38,36 @@ export default class PostController {
     return postResult;
   }
 
-  async findAll({ cursor, limit }: FindAllParams) {
+  async findAll({ cursor, limit, accessToken }: FindAllParams) {
     let query = supabase
       .from('posts')
-      .select('*, comments(*)')
+      .select('*, comments(count)' as any)
       .order('created_at', { ascending: false });
 
     if (cursor) {
       query = query.lt('id', cursor);
     }
 
+    if (accessToken) {
+      const userResult = await this.getUser(accessToken);
+
+      if (userResult.error) {
+        return userResult;
+      }
+
+      query = query.eq('user_id', userResult.data.user.id);
+    }
+
     const result = await query.limit(limit);
+
+    if (!result.error && result.data) {
+      result.data.forEach((post: any) => {
+        if (post.comments) {
+          // eslint-disable-next-line no-param-reassign
+          post.comments = post.comments[0].count;
+        }
+      });
+    }
 
     return result;
   }
