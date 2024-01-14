@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@cloudtype/cli':
+    specifier: ^0.7.1
+    version: 0.7.1
   '@supabase/supabase-js':
     specifier: ^2.39.3
     version: 2.39.3
@@ -95,6 +98,11 @@ packages:
     dependencies:
       regenerator-runtime: 0.14.1
     dev: true
+
+  /@cloudtype/cli@0.7.1:
+    resolution: {integrity: sha512-0EoGrvdLVGp+VZmpYtCFFBc8mTl7XpF3/NXUQvGt5HXJhxXZQt/kkh//Wuej9Vzm2tToHe4o6foHQzdhi/Je7A==}
+    hasBin: true
+    dev: false
 
   /@eslint-community/eslint-utils@4.4.0(eslint@8.49.0):
     resolution: {integrity: sha512-1/sA4dwrzBAyeUoQ6oxahHKmrZvsnLCg4RfxW3ZFGGmQkSNQPFNLV9CUEFQP1x9EYXHTo5p6xdhZM1Ne9p/AfA==}
