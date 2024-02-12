@@ -1,5 +1,6 @@
 import { createServer } from 'http';
 import express from 'express';
+import cors from 'cors';
 import signUpRouter from './api/auth/signUp/signUp';
 import emailRouter from './api/auth/email/email';
 import accessTokenRouter from './api/auth/access-token/access-token';
@@ -13,6 +14,7 @@ const app = express();
 const server = createServer(app);
 
 app.use(express.json());
+app.use(cors());
 
 // auth
 app.use('/sign-up', signUpRouter);
