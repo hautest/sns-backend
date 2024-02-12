@@ -1,19 +1,15 @@
 {
-  "version": 2,
+  "devCommand": "pnpm dev",
   "builds": [
     {
-      "src": "dist/app.js",
-      "use": "@vercel/node",
-      "config": { "includeFiles": ["dist/**"] }
+      "src": "src/app.ts",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/app.js"
+      "dest": "/src/app.ts"
     }
-  ],
-  "installCommand": "pnpm install --frozen-lockfile",
-  "buildCommand": "pnpm build",
-  "outputDirectory": "dist"
+  ]
 }
