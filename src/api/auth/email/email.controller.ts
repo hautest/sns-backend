@@ -48,7 +48,7 @@ export default class EmailController {
     const { error } = await supabase
       .from('verify-email')
       .insert({ token, email, ended_at: endedAt });
-    this.transporter.sendMail({
+    await this.transporter.sendMail({
       from: process.env.EMAIL_FROM,
       to: email,
       subject: '갭잘알 인증코드',
