@@ -58,7 +58,7 @@ export default class EmailController {
     return { errorMessage: error?.message };
   }
 
-  async verifyToken(email: string, token: number) {
+  async verifyToken(email: string, token: string) {
     const { data, error: getTokenError } = await supabase
       .from('verify-email')
       .select('*')

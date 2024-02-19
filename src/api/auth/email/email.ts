@@ -49,7 +49,7 @@ router.post('/verify', async (req, res) => {
     return;
   }
 
-  if (!token || typeof token !== 'number') {
+  if (!token || typeof token !== 'string') {
     res
       .send(
         errorRes({
