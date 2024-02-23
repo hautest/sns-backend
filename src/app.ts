@@ -9,6 +9,7 @@ import postRouter from './api/post/post';
 import commentRouter from './api/comment/comment';
 import likeRouter from './api/like/like';
 import myRouter from './api/my/my';
+import withDrawRouter from './api/auth/withdraw/withdraw';
 
 const app = express();
 const server = createServer(app);
@@ -21,6 +22,7 @@ app.use('/sign-up', signUpRouter);
 app.use('/email', emailRouter);
 app.use('/access-token', accessTokenRouter);
 app.use('/sign-in', signInRouter);
+app.use('/withdraw', withDrawRouter);
 
 // post
 app.use('/post', postRouter);
